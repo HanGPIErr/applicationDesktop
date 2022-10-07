@@ -3,6 +3,7 @@ package com.prlopez.applicationdesktop;
 import com.sun.nio.sctp.MessageInfo;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -61,6 +62,31 @@ public class Fenetre extends JFrame {
         };
 
         JComboBox<Utilisateur>selectUtilisateur = new JComboBox<>(utilisateurs);
+
+
+        //-----------customiser le rendu de la liste déroulante ----------------
+        selectUtilisateur.setRenderer(
+                new DefaultListCellRenderer(){
+
+                    @Override
+                    public Component getListCellRendererComponent(
+                            final JList<?> list,
+                            final Object value,
+                            final int index, final boolean isSelected,
+                            final boolean cellHasFocus) {
+                        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                        Utilisateur utilisateur = (Utilisateur) value;
+                        setText(utilisateur.getPrenom() + " " + utilisateur.getNom());
+//                        if(isSelected){
+//                            setBackground(Color.GREEN);
+//                        }else{
+//                            setBackground(Color.RED);
+//                        }
+                        return this;
+                    }
+                }
+        );
+
         panneau.add(selectUtilisateur);
 
         setVisible(true);
