@@ -1,5 +1,7 @@
 package com.prlopez.applicationdesktop;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.sun.nio.sctp.MessageInfo;
 
 import javax.swing.*;
@@ -10,6 +12,7 @@ import java.awt.event.ItemEvent;
 
 public class Fenetre extends JFrame {
 
+    protected boolean themeSombre = true;
     public Fenetre() {
         setSize(500,500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -40,7 +43,23 @@ public class Fenetre extends JFrame {
             };
 
                 });
-
+        // ------------ Ajout bouton switch light mode -----------------
+        JButton boutonChangeTheme = new JButton("change theme");
+        panneau.add(boutonChangeTheme);
+        boutonChangeTheme.addActionListener(e -> {
+            try {
+                if(themeSombre){
+                    themeSombre = false;
+                    UIManager.setLookAndFeel( new FlatLightLaf());
+                } else {
+                    themeSombre = true;
+                    UIManager.setLookAndFeel( new FlatDarculaLaf());
+                }
+                SwingUtilities.updateComponentTreeUI(this);
+            } catch( Exception ex ) {
+                System.out.println("Failed to initialize LaF");
+            }
+        });
         //-------- COMBOBOX --------
         String[] listeCivilite = {"M.", "Me.", "Mlle.", "Non précisé"};
         JComboBox<Object> selectCivilite = new JComboBox<>(listeCivilite);
@@ -116,6 +135,7 @@ public class Fenetre extends JFrame {
     }
 
     public static void main(String[] args) {
+        FlatDarculaLaf.setup();
         new Fenetre();
 
     }
