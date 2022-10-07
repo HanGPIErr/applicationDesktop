@@ -76,7 +76,12 @@ public class Fenetre extends JFrame {
                             final boolean cellHasFocus) {
                         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                         Utilisateur utilisateur = (Utilisateur) value;
-                        setText(utilisateur.getPrenom() + " " + utilisateur.getNom());
+                        if(utilisateur != null){
+                            setText(utilisateur.getPrenom() + " " + utilisateur.getNom());
+                        }else{
+                            setText("Aucun");
+                        }
+
 //                        if(isSelected){
 //                            setBackground(Color.GREEN);
 //                        }else{
@@ -89,6 +94,24 @@ public class Fenetre extends JFrame {
 
         panneau.add(selectUtilisateur);
 
+        //---------- bouton du formulaire --------
+
+        JButton boutonFormulaire = new JButton("Envoyer");
+        boutonFormulaire.addActionListener(e -> {
+
+            if(selectUtilisateur.getSelectedItem() != null) {
+                Utilisateur utilisateur =
+                        (Utilisateur)selectUtilisateur.getSelectedItem();
+
+                System.out.println(
+                        selectCivilite.getSelectedItem() + utilisateur.getNom()
+                );
+            }
+
+        });
+
+
+        panneau.add(boutonFormulaire);
         setVisible(true);
     }
 
