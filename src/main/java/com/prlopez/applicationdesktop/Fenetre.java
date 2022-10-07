@@ -5,6 +5,7 @@ import com.sun.nio.sctp.MessageInfo;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 
 public class Fenetre extends JFrame {
 
@@ -14,7 +15,9 @@ public class Fenetre extends JFrame {
 
         JPanel panneau = new JPanel();
         setContentPane(panneau);
-        JButton bouton = new JButton("Click moi :)");
+
+        //----------- BUTTON -------------------
+        JButton bouton = new JButton("Fermer l'application");
 
         panneau.add(bouton);
 
@@ -36,6 +39,30 @@ public class Fenetre extends JFrame {
             };
 
                 });
+
+        //-------- COMBOBOX --------
+        String[] listeCivilite = {"M.", "Me.", "Mlle.", "Non précisé"};
+        JComboBox<Object> selectCivilite = new JComboBox<>(listeCivilite);
+        panneau.add(selectCivilite);
+
+        selectCivilite.addActionListener((ActionEvent e) ->{
+            JComboBox comboBox = (JComboBox) e.getSource();
+            System.out.println(comboBox.getSelectedItem());
+
+        });
+
+
+        //----------- autre exemple -----------------
+
+        Utilisateur[] utilisateurs={
+                new Utilisateur("BANSEPT", "Franck"),
+                new Utilisateur("SNOW", "John"),
+                new Utilisateur("SMITH", "Steve")
+        };
+
+        JComboBox<Utilisateur>selectUtilisateur = new JComboBox<>(utilisateurs);
+        panneau.add(selectUtilisateur);
+
         setVisible(true);
     }
 
